@@ -21,7 +21,7 @@ app.get('/contact/authent', function(req, res) {
 				if (err != null || result.rowCount == 0) {
 					// authentication failed
 					if (result.rowCount == 0) {
-						res.status(400).json({error: 'User/Password not found'});
+						res.json({error: 'User/Password not found'});
 					} else {
 						res.status(400).json({error: err.message});
 					}

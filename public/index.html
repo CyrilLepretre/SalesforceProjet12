@@ -13,16 +13,20 @@
 		}
 	</style>
 	<script>
-		$(phoneChangerForm).hide();
 		$(function() {
 			$("#authentication").submit(function(event) {
 				event.preventDefault();
 				var user = $("#user").val();
 				var pwd = $("#pwd").val();
+				var errorAuthentMessage = $("#errorAuthentMessage");
+				var errorAuthent = $("#errorAuthent");
+				errorAuthent.hide();
+				$("#message").hide();
+
 				console.log('User : ' + user);
 				console.log('Pwd : ' + pwd);
 				if (user.length == 0 || pwd.length == 0) {
-					errorMessage.text("User and Password fields are required.");
+					errorAuthentMessage.text("User and Password fields are required.");
 					errorAuthent.show();
 				} else {
 					$.ajax({
@@ -59,6 +63,7 @@
 				$("#message").hide();
 
 				var firstName = $("#firstName").val();
+				console.log('FirstName : ' + firstName);
 				var lastName = $("#lastName").val();
 				var email = $("#email").val();
 				var phone = $("#phone").val();
@@ -95,7 +100,6 @@
 				}
 			});
 		});
-
 	</script>
 </head>
 <body>
