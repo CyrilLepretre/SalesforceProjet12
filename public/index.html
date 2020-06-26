@@ -13,6 +13,8 @@
 		}
 	</style>
 	<script>
+		var contactId;
+
 		$(function () {
 			var contactInformationForm = $("#contactInformationForm");
 			contactInformationForm.hide();
@@ -44,6 +46,7 @@
 						contentType: "application/json; charset=utf-8",
 						dataType: "json",
 						success: function(data) {
+							console.log('data:'+data);
 							$("#messageAuthentMessage").text("Authentication success !");
 							$("#messageAuthent").show();
 							var authenticationForm = $("#authenticationForm");

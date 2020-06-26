@@ -17,7 +17,7 @@ app.post('/contact/authent', function(req, res) {
 		console.log('req.body.user:-' + req.body.user + '-');
 		console.log('req.body.pwd:-' + req.body.pwd + '-');
 		conn.query(
-			'SELECT FirstName FROM salesforce.Contact WHERE LOWER(Email) = LOWER($1) AND MobileAppPwd__c = ($2)',
+			'SELECT Id, FirstName, LastName, Email, Phone FROM salesforce.Contact WHERE LOWER(Email) = LOWER($1) AND MobileAppPwd__c = ($2)',
 			[req.body.user.trim(), req.body.pwd.trim()],
 			function(err, result) {
 				done();
