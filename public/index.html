@@ -78,7 +78,8 @@
 			console.log('ContactId:'+contactId);
 			// then show Contract List
 			var contractsList = $("#contractsList");
-			contractsList.show();
+			//contractsList.show();
+			contractsList.delay(1200).fadeIn(400);
 		}
 
 		$(function() {
@@ -131,10 +132,14 @@
 			});
 		});
 
-		$(function() {
+		/*$(function() {
 			$("#contractsList").submit(function(event) {
 				console.log('Dans contracsList via submit');
 			});
+		});*/
+		$("#buttonGetContracts").on("click", function(event) {
+			event.preventDefault();
+			console.log('Dans contracsList via button');
 		});
 
 	</script>
@@ -230,7 +235,7 @@
 				</table>
 			</div>
 			<div class="panel-footer">
-				<button type="submit" class="btn btn-primary">Retrieve contracts</button>
+				<button type="button" id="buttonGetContracts" class="btn btn-primary">Retrieve contracts</button>
 			</div>
 		</div>
 	</div>
