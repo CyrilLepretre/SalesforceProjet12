@@ -132,12 +132,7 @@
 			});
 		});
 
-		/*$(function() {
-			$("#contractsList").submit(function(event) {
-				console.log('Dans contracsList via submit');
-			});
-		});*/
-		$("#buttonGetContracts").on("click", function(event) {
+		$(document).on("click", "#buttonGetContracts", function(event) {
 			event.preventDefault();
 			console.log('Dans contracsList via button');
 		});
