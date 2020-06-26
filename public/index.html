@@ -15,13 +15,14 @@
 	<script>
 		$(function() {
 			$("#authentication").submit(function(event) {
+				console.log('Dans authent');
 				event.preventDefault();
 				var user = $("#user").val();
 				var pwd = $("#pwd").val();
 				var errorAuthentMessage = $("#errorAuthentMessage");
 				var errorAuthent = $("#errorAuthent");
 				errorAuthent.hide();
-				$("#message").hide();
+				$("#messageAuthent").hide();
 
 				console.log('User : ' + user);
 				console.log('Pwd : ' + pwd);
@@ -54,6 +55,7 @@
 
 		$(function() {
 			$("#phoneChangerForm").submit(function(event) {
+				console.log('Dans phone');
 				event.preventDefault();
 
 				var errorMessage = $("#errorMessage");
