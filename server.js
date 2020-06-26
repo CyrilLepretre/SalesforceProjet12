@@ -9,6 +9,28 @@ app.set('port', process.env.PORT || 5000);
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
+app.get('/contact/authent', function(req, res) {
+	pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
+		// watch for any connect issues
+		if (err) console.log(err);
+		conn.query(
+			'SELECT salesforce.Contact WHERE LOWER(Email) = LOWER($1) AND MobileAppPwd__c = ($2)',
+			[req.body.user.trim(), req.body.pwd.trim()],
+			function(err, result) {
+				if (err != null || result.rowCount == 0) {
+					// authentication failed
+					res.status(400).json({error: err.message});
+				}
+				else {
+					// authentication success
+					done();
+					res.json(result);
+				}
+			}
+		);
+	});
+});
+
 app.post('/update', function(req, res) {
 	pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
 		// watch for any connect issues

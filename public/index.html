@@ -13,6 +13,39 @@
 		}
 	</style>
 	<script>
+		$(phoneChangerForm).hide();
+		$(function() {
+			$("#authentication").submit(function(event) {
+				event.preventDefault();
+				var user = $("#email").val();
+				var pwd = $("#pwd").val();
+				if (user.length == 0 || pwd.length == 0) {
+					errorMessage.text("User and Password fields are required.");
+					errorAuthent.show();
+				} else {
+					$.ajax({
+						url: event.target.action,
+						method: event.target.method,
+						data: JSON.stringify({
+							user: user,
+							pwd: pwd,
+						}),
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						success: function(data) {
+							$("#messageAuthentMessage").text("Authentication success !");
+							$("#messageAuthent").show();
+						},
+						error: function(err) {
+							errorAuthentMessage.text(err.responseJSON.error);
+							errorAuthent.show();
+						}
+					})
+				}
+			});
+		});
+
+
 		$(function() {
 			$("#phoneChangerForm").submit(function(event) {
 				event.preventDefault();
@@ -73,7 +106,7 @@
 	</nav>
 
 	<div class="container">
-		<form id="authentication" action="/update" method="post" style="width: 400px">
+		<form id="authentication" action="/contact/authent" method="get" style="width: 400px">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">Authentication</h3>
@@ -84,19 +117,19 @@
 						<input type="email" class="form-control" id="email" placeholder="Enter your email" required>
 					</div>
 					<div class="form-group">
-						<label for="phone">Password</label>
-						<input type="tel" class="form-control" id="phone" placeholder="Enter your password" required>
+						<label for="pwd">Password</label>
+						<input type="password" class="form-control" id="pwd" placeholder="Enter your password" required>
 					</div>
 				</div>
 				<div class="panel-footer">
 					<div id="messageAuthent" class="alert alert-info" role="alert" style="display: none;">
 						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-						<span id="messageMessage"></span>
+						<span id="messageAuthentMessage"></span>
 					</div>
 					<div id="errorAuthent" class="alert alert-danger" role="alert" style="display: none;">
 						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 						<span class="sr-only">Error:</span>
-						<span id="errorMessage"></span>
+						<span id="errorAuthentMessage"></span>
 					</div>
 					<button type="submit" class="btn btn-primary">Validate</button>
 				</div>
