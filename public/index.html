@@ -13,6 +13,10 @@
 		}
 	</style>
 	<script>
+		$(function () {
+			var contactInformationForm = $("#contactInformationForm");
+			contactInformationForm.hide();
+		});
 		$(function() {
 			$("#authentication").submit(function(event) {
 				console.log('Dans authent');
@@ -42,6 +46,7 @@
 						success: function(data) {
 							$("#messageAuthentMessage").text("Authentication success !");
 							$("#messageAuthent").show();
+							contactInformationForm.show();
 						},
 						error: function(err) {
 							errorAuthentMessage.text(err.responseJSON.error);
@@ -54,7 +59,7 @@
 
 
 		$(function() {
-			$("#phoneChangerForm").submit(function(event) {
+			$("#contactInformationForm").submit(function(event) {
 				console.log('Dans phone');
 				event.preventDefault();
 
@@ -144,10 +149,10 @@
 			</div>
 		</form>
 
-		<form id="phoneChangerForm" action="/update" method="post" style="width: 400px">
+		<form id="contactInformationForm" action="/update" method="post" style="width: 400px">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">Update Your Phone Number</h3>
+					<h3 class="panel-title">Update Your Contact Information</h3>
 				</div>
 				<div class="panel-body">
 					<div class="form-group">
