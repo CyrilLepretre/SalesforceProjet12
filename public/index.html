@@ -46,10 +46,12 @@
 						success: function(data) {
 							$("#messageAuthentMessage").text("Authentication success !");
 							$("#messageAuthent").show();
-							var contactInformationForm = $("#contactInformationForm");
-							contactInformationForm.show().slideUp(300).fadeIn(400);
 							var authenticationForm = $("#authenticationForm");
 							authenticationForm.delay(800).slideUp(300);
+							initAndShow($("#contactInformationForm"));
+							//var contactInformationForm = $("#contactInformationForm");
+							//contactInformationForm.show().slideUp(300).fadeIn(400);
+							//contactInformationForm.show().delay(1100).slideUp(300);
 						},
 						error: function(err) {
 							errorAuthentMessage.text(err.responseJSON.error);
@@ -60,6 +62,10 @@
 			});
 		});
 
+		function initAndShow($param) {
+			$param.delay(1100).slideUp(300);
+			
+		}
 
 		$(function() {
 			$("#contactInformationForm").submit(function(event) {
