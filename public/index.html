@@ -71,6 +71,8 @@
 			$("#lastName").val($data.rows[0].lastname);
 			$("#email").val($data.rows[0].email);
 			$("#phone").val($data.rows[0].phone);
+			contactId = $data.rows[0].sfid;
+			console.log('ContactId:'+contactId);
 		}
 
 		$(function() {
