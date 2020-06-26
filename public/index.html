@@ -152,14 +152,26 @@
 					dataType: "json",
 					success: function(data) {
 						console.log('data:'+JSON.stringify(data));
+						// Populate contracts table
+						var bodyContracts = $("#bodyContracts");
+						$.each(data.rows, function() {
+							var lineContent = '<tr data-id="' + this.id + '">';
+							lineContent += '<td>' + this.name + '</td>';
+							lineContent += '<td>' + this.product_assu__c + '</td></tr>';
+							bodyContracts.append(lineContent);
+						});
+						// Message on footer
 						var messageGetContractsMessage = $("#messageGetContractsMessage");
 						messageGetContractsMessage.text("Success");
 						var messageGetContracts = $("#messageGetContracts");
 						messageGetContracts.show();
 					},
 					error: function(err) {
+						// Message on footer
+						var errorGetContractsMessage = $("#errorGetContractsMessage");
 						errorGetContractsMessage.text(err.responseJSON.error);
-						errorGetContractsMessage.show();
+						var errorGetContracts = $("#errorGetContracts");
+						errorGetContracts.show();
 					}
 				})
 			}
@@ -177,7 +189,7 @@
 	</nav>
 
 	<div class="container text-center">
-		<form id="authenticationForm" action="/contact/authent" method="post" style="width: 500px">
+		<form id="authenticationForm" action="/contact/authent" method="post" style="width: 400px">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">Authentication</h3>
@@ -207,7 +219,7 @@
 			</div>
 		</form>
 
-		<form id="contactInformationForm" action="/update" method="post" style="width: 500px">
+		<form id="contactInformationForm" action="/update" method="post" style="width: 400px">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">Update Your Contact Information</h3>
@@ -245,7 +257,7 @@
 			</div>
 		</form>
 
-		<div id="contractsList" class="panel panel-default" style="width: 500px">
+		<div id="contractsList" class="panel panel-default" style="width: 400px">
 			<div class="panel-heading">
 				<h3 class="panel-title">Contracts List</h3>
 			</div>
@@ -255,6 +267,8 @@
 						<th scope="col">Contract Name</th>
 						<th scope="col">Product</th>
 					</thead>
+					<tbody id="bodyContracts">
+					</tbody>
 				</table>
 			</div>
 			<div class="panel-footer">

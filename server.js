@@ -44,7 +44,7 @@ app.post('/contracts', function(req, res) {
 		if (err) console.log(err);
 		console.log('req.body : ' + JSON.stringify(req.body));
 		conn.query(
-			'SELECT Name, Product_Assu__c FROM salesforce.Contract_Assu__c WHERE LOWER(Contact__c) = LOWER($1)',
+			'SELECT Id, Name, Product_Assu__c FROM salesforce.Contract_Assu__c WHERE LOWER(Contact__c) = LOWER($1)',
 			[req.body.contactId.trim()],
 			function(err, result) {
 				done();
