@@ -80,6 +80,10 @@
 			var contractsList = $("#contractsList");
 			//contractsList.show();
 			contractsList.delay(1200).fadeIn(400);
+			var messageGetContracts = $("#messageGetContracts");
+			var errorGetContracts = $("#errorGetContracts");
+			messageGetContracts.hide();
+			errorGetContracts.hide();
 		}
 
 		$(function() {
@@ -134,7 +138,31 @@
 
 		$(document).on("click", "#buttonGetContracts", function(event) {
 			event.preventDefault();
+			var messageGetContractsMessage = $("#messageGetContractsMessage");
+			var errorGetContractsMessage = $("#errorGetContractsMessage");
 			console.log('Dans contracsList via button');
+			if (contactId != undefined && contactId != "") {
+				$.ajax({
+					url: "/contracts",
+					method: "post",
+					data: JSON.stringify({
+						contactId: contactId,
+					}),
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					success: function(data) {
+						console.log('data:'+JSON.stringify(data));
+						var messageGetContractsMessage = $("#messageGetContractsMessage");
+						messageGetContractsMessage.text("Success");
+						var messageGetContracts = $("#messageGetContracts");
+						messageGetContracts.show();
+					},
+					error: function(err) {
+						errorGetContractsMessage.text(err.responseJSON.error);
+						errorGetContractsMessage.show();
+					}
+				})
+			}
 		});
 
 	</script>
@@ -148,8 +176,8 @@
 		</div>
 	</nav>
 
-	<div class="container">
-		<form id="authenticationForm" action="/contact/authent" method="post" style="width: 400px">
+	<div class="container text-center">
+		<form id="authenticationForm" action="/contact/authent" method="post" style="width: 500px">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">Authentication</h3>
@@ -179,7 +207,7 @@
 			</div>
 		</form>
 
-		<form id="contactInformationForm" action="/update" method="post" style="width: 400px">
+		<form id="contactInformationForm" action="/update" method="post" style="width: 500px">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">Update Your Contact Information</h3>
@@ -217,7 +245,7 @@
 			</div>
 		</form>
 
-		<div id="contractsList" class="panel panel-default">
+		<div id="contractsList" class="panel panel-default" style="width: 500px">
 			<div class="panel-heading">
 				<h3 class="panel-title">Contracts List</h3>
 			</div>
@@ -230,6 +258,15 @@
 				</table>
 			</div>
 			<div class="panel-footer">
+				<div id="messageGetContracts" class="alert alert-info" role="alert" style="display: none;">
+					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+					<span id="messageGetContractsMessage"></span>
+				</div>
+				<div id="errorGetContracts" class="alert alert-danger" role="alert" style="display: none;">
+					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					<span class="sr-only">Error:</span>
+					<span id="errorGetContractsMessage"></span>
+				</div>
 				<button type="button" id="buttonGetContracts" class="btn btn-primary">Retrieve contracts</button>
 			</div>
 		</div>

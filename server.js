@@ -38,6 +38,31 @@ app.post('/contact/authent', function(req, res) {
 	});
 });
 
+app.post('/contracts', function(req, res) {
+	pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
+		// watch for any connect issues
+		if (err) console.log(err);
+		console.log('req.body : ' + JSON.stringify(req.body));
+		conn.query(
+			'SELECT Name, Product_Assu__c FROM salesforce.Contract_Assu__c WHERE LOWER(Contact__c) = LOWER($1)',
+			[req.body.contactId.trim()],
+			function(err, result) {
+				done();
+				if (err != null || result.rowCount == 0) {
+					if (result.rowCount == 0) {
+						res.status(204).json({error: 'No results found'});
+					} else {
+						res.status(400).json({error: err.message});
+					}
+				}
+				else {
+					res.json(result);
+				}
+			}
+		);
+	});
+});
+
 app.post('/update', function(req, res) {
 	pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
 		// watch for any connect issues
