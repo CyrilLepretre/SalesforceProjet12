@@ -17,7 +17,7 @@
 		$(function() {
 			$("#authentication").submit(function(event) {
 				event.preventDefault();
-				var user = $("#email").val();
+				var user = $("#user").val();
 				var pwd = $("#pwd").val();
 				if (user.length == 0 || pwd.length == 0) {
 					errorMessage.text("User and Password fields are required.");
@@ -114,7 +114,7 @@
 				<div class="panel-body">
 					<div class="form-group">
 						<label for="email">Email</label>
-						<input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+						<input type="email" class="form-control" id="user" placeholder="Enter your email" required>
 					</div>
 					<div class="form-group">
 						<label for="pwd">Password</label>

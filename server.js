@@ -14,7 +14,7 @@ app.get('/contact/authent', function(req, res) {
 		// watch for any connect issues
 		if (err) console.log(err);
 		conn.query(
-			'SELECT salesforce.Contact WHERE LOWER(Email) = LOWER($1) AND MobileAppPwd__c = ($2)',
+			'SELECT Firstname FROM salesforce.Contact WHERE LOWER(Email) = LOWER($1) AND MobileAppPwd__c = ($2)',
 			[req.body.user.trim(), req.body.pwd.trim()],
 			function(err, result) {
 				done();
