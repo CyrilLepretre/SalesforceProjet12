@@ -17,13 +17,13 @@ app.get('/contact/authent', function(req, res) {
 			'SELECT salesforce.Contact WHERE LOWER(Email) = LOWER($1) AND MobileAppPwd__c = ($2)',
 			[req.body.user.trim(), req.body.pwd.trim()],
 			function(err, result) {
+				done();
 				if (err != null || result.rowCount == 0) {
 					// authentication failed
 					res.status(400).json({error: err.message});
 				}
 				else {
 					// authentication success
-					done();
 					res.json(result);
 				}
 			}
