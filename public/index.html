@@ -18,7 +18,10 @@
 		$(function () {
 			var contactInformationForm = $("#contactInformationForm");
 			contactInformationForm.hide();
+			var contractsList = $("#contractsList");
+			contractsList.hide();
 		});
+
 		$(function() {
 			$("#authenticationForm").submit(function(event) {
 				console.log('Dans authent');
@@ -51,7 +54,7 @@
 							$("#messageAuthent").show();
 							var authenticationForm = $("#authenticationForm");
 							authenticationForm.delay(800).slideUp(300);
-							initAndShow($("#contactInformationForm"), data);
+							initAndShowContactForm($("#contactInformationForm"), data);
 							//var contactInformationForm = $("#contactInformationForm");
 							//contactInformationForm.show().slideUp(300).fadeIn(400);
 							//contactInformationForm.show().delay(1100).slideUp(300);
@@ -65,7 +68,7 @@
 			});
 		});
 
-		function initAndShow($param, $data) {
+		function initAndShowContactForm($param, $data) {
 			$param.delay(1100).fadeIn(400);
 			$("#firstName").val($data.rows[0].firstname);
 			$("#lastName").val($data.rows[0].lastname);
@@ -73,6 +76,9 @@
 			$("#phone").val($data.rows[0].phone);
 			contactId = $data.rows[0].sfid;
 			console.log('ContactId:'+contactId);
+			// then show Contract List
+			var contractsList = $("#contractsList");
+			contractsList.show();
 		}
 
 		$(function() {
@@ -124,6 +130,13 @@
 				}
 			});
 		});
+
+		$(function() {
+			$("#contractsList").submit(function(event) {
+				console.log('Dans contracsList via submit');
+			});
+		});
+
 	</script>
 </head>
 <body>
@@ -203,6 +216,23 @@
 				</div>
 			</div>
 		</form>
+
+		<div id="contractsList" class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Contracts List</h3>
+			</div>
+			<div class="panel-body">
+				<table class="table">
+					<thead>
+						<th scope="col">Contract Name</th>
+						<th scope="col">Product</th>
+					</thead>
+				</table>
+			</div>
+			<div class="panel-footer">
+				<button type="submit" class="btn btn-primary">Retrieve contracts</button>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
