@@ -13,6 +13,7 @@ app.get('/contact/authent', function(req, res) {
 	pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
 		// watch for any connect issues
 		if (err) console.log(err);
+		console.log('req.body : ' + JSON.stringify(req.body));
 		console.log('req.body.user:-' + req.body.user + '-');
 		console.log('req.body.pwd:-' + req.body.pwd + '-');
 		conn.query(
