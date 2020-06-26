@@ -13,6 +13,8 @@ app.get('/contact/authent', function(req, res) {
 	pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
 		// watch for any connect issues
 		if (err) console.log(err);
+		console.log('req.body.user:-' + req.body.user + '-');
+		console.log('req.body.pwd:-' + req.body.pwd + '-');
 		conn.query(
 			'SELECT FirstName FROM salesforce.Contact WHERE LOWER(Email) = LOWER($1) AND MobileAppPwd__c = ($2)',
 			[req.body.user.trim(), req.body.pwd.trim()],
