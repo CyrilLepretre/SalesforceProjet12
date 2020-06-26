@@ -18,7 +18,7 @@
 			contactInformationForm.hide();
 		});
 		$(function() {
-			$("#authentication").submit(function(event) {
+			$("#authenticationForm").submit(function(event) {
 				console.log('Dans authent');
 				event.preventDefault();
 				var user = $("#user").val();
@@ -47,7 +47,9 @@
 							$("#messageAuthentMessage").text("Authentication success !");
 							$("#messageAuthent").show();
 							var contactInformationForm = $("#contactInformationForm");
-							contactInformationForm.show();
+							contactInformationForm.show().slideUp(300).fadeIn(400);
+							var authenticationForm = $("#authenticationForm");
+							authenticationForm.delay(800).slideUp(300);
 						},
 						error: function(err) {
 							errorAuthentMessage.text(err.responseJSON.error);
@@ -120,7 +122,7 @@
 	</nav>
 
 	<div class="container">
-		<form id="authentication" action="/contact/authent" method="post" style="width: 400px">
+		<form id="authenticationForm" action="/contact/authent" method="post" style="width: 400px">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">Authentication</h3>
