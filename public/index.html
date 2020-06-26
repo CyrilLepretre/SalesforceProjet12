@@ -19,6 +19,8 @@
 				event.preventDefault();
 				var user = $("#user").val();
 				var pwd = $("#pwd").val();
+				console.log('User : ' + user);
+				console.log('Pwd : ' + pwd);
 				if (user.length == 0 || pwd.length == 0) {
 					errorMessage.text("User and Password fields are required.");
 					errorAuthent.show();
@@ -113,7 +115,7 @@
 				</div>
 				<div class="panel-body">
 					<div class="form-group">
-						<label for="email">Email</label>
+						<label for="user">Email</label>
 						<input type="email" class="form-control" id="user" placeholder="Enter your email" required>
 					</div>
 					<div class="form-group">
