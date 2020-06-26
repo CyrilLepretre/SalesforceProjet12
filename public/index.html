@@ -159,13 +159,13 @@
 							lineContent += '<td>' + this.name + '</td>';
 							lineContent += '<td>' + this.product_assu__c + '</td></tr>';
 							bodyContracts.append(lineContent);
-							$('#buttonGetContracts').prop('disabled', true);
 						});
-						// Message on footer
+						// Message on footer and disable button
 						var messageGetContractsMessage = $("#messageGetContractsMessage");
 						messageGetContractsMessage.text("Success");
 						var messageGetContracts = $("#messageGetContracts");
 						messageGetContracts.show();
+						$('#buttonGetContracts').prop('disabled', true);
 					},
 					error: function(err) {
 						// Message on footer
