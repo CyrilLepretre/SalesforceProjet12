@@ -159,6 +159,7 @@
 							lineContent += '<td>' + this.name + '</td>';
 							lineContent += '<td>' + this.product_assu__c + '</td></tr>';
 							bodyContracts.append(lineContent);
+							$('#buttonGetContracts').prop('disabled', true);
 						});
 						// Message on footer
 						var messageGetContractsMessage = $("#messageGetContractsMessage");
@@ -188,7 +189,7 @@
 		</div>
 	</nav>
 
-	<div class="container text-center">
+	<div class="container">
 		<form id="authenticationForm" action="/contact/authent" method="post" style="width: 400px">
 			<div class="panel panel-default">
 				<div class="panel-heading">
