@@ -51,7 +51,7 @@
 							$("#messageAuthent").show();
 							var authenticationForm = $("#authenticationForm");
 							authenticationForm.delay(800).slideUp(300);
-							initAndShow($("#contactInformationForm"));
+							initAndShow($("#contactInformationForm"), data);
 							//var contactInformationForm = $("#contactInformationForm");
 							//contactInformationForm.show().slideUp(300).fadeIn(400);
 							//contactInformationForm.show().delay(1100).slideUp(300);
@@ -65,9 +65,9 @@
 			});
 		});
 
-		function initAndShow($param) {
+		function initAndShow($param, $data) {
 			$param.delay(1100).fadeIn(400);
-
+			$("#firstName").val($data.rows[0].firstname);
 		}
 
 		$(function() {
@@ -169,7 +169,7 @@
 				<div class="panel-body">
 					<div class="form-group">
 						<label for="firstName">First Name</label>
-						<input type="text" class="form-control" id="firstName" placeholder="For verification" required>
+						<input type="text" class="form-control" id="firstName" placeholder="For verification" readonly>
 					</div>
 					<div class="form-group">
 						<label for="lastName">Last Name</label>
