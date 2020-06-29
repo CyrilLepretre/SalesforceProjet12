@@ -62,8 +62,9 @@ app.post('/contracts', function(req, res) {
 						console.log('CLE : row ' + index + ', item ' + JSON.stringify(item));
 						console.log('CLE : item.product_assu__c to modify : -' + item.product_assu__c + '-');
 						conn.query(
-							'SELECT Name FROM Product_Assu__c WHERE SfId = $1',
-							[item.product_assu__c],
+							'SELECT Id, Name FROM Product_Assu__c',
+							/*'SELECT Name FROM Product_Assu__c WHERE SfId = $1',
+							[item.product_assu__c],*/
 							function(err2, result2) {
 								done();
 								console.log('CLE result2:'+JSON.stringify(result2));
