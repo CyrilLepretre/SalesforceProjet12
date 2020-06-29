@@ -75,17 +75,25 @@ app.post('/contracts', function(req, res) {
 								}
 							}
 						);
+						if (result.rows.length == index + 1) {
+							callbackContracts(res, result);
+						}
 					/*}).then(function() {
 						console.log('CLE : RESULT =' +JSON.stringify(result));
 						res.json(result);*/
 					});
 					//console.log('CLE : RESULT =' +JSON.stringify(result));
-					res.json(result);
+					//res.json(result);
 				}
 			}
 		);
 	});
 });
+
+function callbackContracts(res, result) {
+	console.log('CLE : RESULT =' +JSON.stringify(result));
+	res.json(result);
+}
 
 app.post('/update', function(req, res) {
 	pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
