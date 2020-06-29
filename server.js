@@ -73,11 +73,13 @@ app.post('/contracts', function(req, res) {
 									item.product_assu__c = result2.rows[0].name;
 									console.log('CLE - Update name new : ' + result2.rows[0].name);
 								}
+								console.log('CLE --------------- length ' + result.rows.length);
+								console.log('CLE --------------- index + 1 ' + (index + 1));
+								if (result.rows.length == index + 1) {
+									callbackContracts(res, result);
+								}
 							}
 						);
-						if (result.rows.length == index + 1) {
-							callbackContracts(res, result);
-						}
 					/*}).then(function() {
 						console.log('CLE : RESULT =' +JSON.stringify(result));
 						res.json(result);*/
