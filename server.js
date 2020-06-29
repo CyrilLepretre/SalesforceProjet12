@@ -69,12 +69,12 @@ app.post('/contracts', function(req, res) {
 								if (err2 == null && result2.rowCount != 0) {
 									// Result found in Produc_Assu__c => replace product Id by product name in result
 									item.product_assu__c = result2.rows[0].name;
-									console.log('CLE - Update name : ' + result2.rows[0].name);
+									console.log('CLE - Update name new : ' + result2.rows[0].name);
 								}
 							}
 						);
 					});
-					console.log('CLE : RESULT=' +JSON.stringify(result));
+					console.log('CLE : RESULT =' +JSON.stringify(result));
 					res.json(result);
 				}
 			}
