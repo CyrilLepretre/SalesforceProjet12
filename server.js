@@ -56,6 +56,23 @@ app.post('/contracts', function(req, res) {
 					}
 				}
 				else {
+
+					// Results found => sub query to retrieve product of eachr row with the SfId
+					result.rows.forEach(function(item, index) {
+						console.log('CLE : row ' + index + ', item ' + JSON.stringify(item));
+						conn.query(
+							'SELECT Name FROM Product_Assu__c WHERE SfId = $1',
+							[item.product_assu__c],
+							function(err2, result2) {
+								done();
+								if (err2 == null && result2.rowCount != 0) {
+									// Result found in Produc_Assu__c => replace product Id by product name in result
+									item.product_assu__c = result2.rows[0].name;
+								}
+							}
+						);
+					});
+
 					res.json(result);
 				}
 			}
