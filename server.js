@@ -75,9 +75,12 @@ app.post('/contracts', function(req, res) {
 								}
 							}
 						);
+					}).then(function() {
+						console.log('CLE : RESULT =' +JSON.stringify(result));
+						res.json(result);
 					});
-					console.log('CLE : RESULT =' +JSON.stringify(result));
-					res.json(result);
+					//console.log('CLE : RESULT =' +JSON.stringify(result));
+					//res.json(result);
 				}
 			}
 		);
