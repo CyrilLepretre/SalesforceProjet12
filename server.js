@@ -66,6 +66,8 @@ app.post('/contracts', function(req, res) {
 							[item.product_assu__c],
 							function(err2, result2) {
 								done();
+								console.log('CLE result2:'+JSON.stringify(result2));
+								console.log('CLE err2:'+JSON.stringify(err2));
 								if (err2 == null && result2.rowCount != 0) {
 									// Result found in Produc_Assu__c => replace product Id by product name in result
 									item.product_assu__c = result2.rows[0].name;
