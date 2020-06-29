@@ -22,6 +22,8 @@
 			contactInformationForm.hide();
 			var contractsList = $("#contractsList");
 			contractsList.hide();
+			var productsList = $("#productsList");
+			productsList.hide();
 		});
 
 		$(function() {
@@ -80,12 +82,18 @@
 			console.log('ContactId:'+contactId);
 			// then show Contract List
 			var contractsList = $("#contractsList");
-			//contractsList.show();
 			contractsList.delay(1200).fadeIn(400);
 			var messageGetContracts = $("#messageGetContracts");
 			var errorGetContracts = $("#errorGetContracts");
 			messageGetContracts.hide();
 			errorGetContracts.hide();
+			// then show Product List
+			var productsList = $("#productsList");
+			productsList.delay(1300).fadeIn(400);
+			var messageGetProducts = $("#messageGetProducts");
+			var errorGetProducts = $("#errorGetProducts");
+			messageGetProducts.hide();
+			errorGetProducts.hide();
 		}
 
 		$(function() {
@@ -178,6 +186,42 @@
 					}
 				})
 			}
+		});
+
+		$(document).on("click", "#buttonGetProducts", function(event) {
+			event.preventDefault();
+			var messageGetProductsMessage = $("#messageGetProductsMessage");
+			var errorGetProductsMessage = $("#errorGetProductsMessage");
+			console.log('Dans ProductsList via button');
+			$.ajax({
+				url: "/products",
+				method: "post",
+				data: JSON.stringify({}),
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: function(data) {
+					console.log('data:'+JSON.stringify(data));
+					// Populate products table
+					var bodyProducts = $("#bodyProducts");
+					$.each(data.rows, function() {
+						var lineContent = '<tr data-id="' + this.id + '"><td>' + this.name + '</td></tr>';
+						bodyProducts.append(lineContent);
+					});
+					// Message on footer and disable button
+					var messageGetProductsMessage = $("#messageGetProductsMessage");
+					messageGetProductsMessage.text("Success");
+					var messageGetProducts = $("#messageGetProducts");
+					messageGetProducts.show();
+					$('#buttonGetProducts').prop('disabled', true);
+				},
+				error: function(err) {
+					// Message on footer
+					var errorGetProductsMessage = $("#errorGetProductsMessage");
+					errorGetProductsMessage.text(err.responseJSON.error);
+					var errorGetProducts = $("#errorGetProducts");
+					errorGetProducts.show();
+				}
+			})
 		});
 
 	</script>
@@ -285,6 +329,33 @@
 					<span id="errorGetContractsMessage"></span>
 				</div>
 				<button type="button" id="buttonGetContracts" class="btn btn-primary">Retrieve contracts</button>
+			</div>
+		</div>
+
+		<div id="productsList" class="panel panel-default" style="width: 400px">
+			<div class="panel-heading">
+				<h3 class="panel-title">Products List</h3>
+			</div>
+			<div class="panel-body">
+				<table class="table">
+					<thead>
+						<th scope="col">Product Name</th>
+					</thead>
+					<tbody id="bodyProducts">
+					</tbody>
+				</table>
+			</div>
+			<div class="panel-footer">
+				<div id="messageGetProducts" class="alert alert-info" role="alert" style="display: none;">
+					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+					<span id="messageGetProductsMessage"></span>
+				</div>
+				<div id="errorGetProducts" class="alert alert-danger" role="alert" style="display: none;">
+					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					<span class="sr-only">Error:</span>
+					<span id="errorGetProductsMessage"></span>
+				</div>
+				<button type="button" id="buttonGetProducts" class="btn btn-primary">Retrieve products</button>
 			</div>
 		</div>
 	</div>

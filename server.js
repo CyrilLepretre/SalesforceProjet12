@@ -56,7 +56,6 @@ app.post('/contracts', function(req, res) {
 					}
 				}
 				else {
-
 					// Results found => sub query to retrieve product of eachr row with the SfId
 					result.rows.forEach(function(item, index) {
 						console.log('CLE : row ' + index + ', item ' + JSON.stringify(item));
@@ -96,6 +95,29 @@ function callbackContracts(res, result) {
 	console.log('CLE : RESULT =' +JSON.stringify(result));
 	res.json(result);
 }
+
+app.post('/products', function(req, res) {
+	pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
+		// watch for any connect issues
+		if (err) console.log(err);
+		conn.query(
+			'SELECT Name FROM salesforce.Product_Assu__c',
+			function(err, result) {
+				done();
+				if (err != null || result.rowCount == 0) {
+					if (result.rowCount == 0) {
+						res.status(403).json({error: 'No product found'});
+					} else {
+						res.status(400).json({error: err.message});
+					}
+				}
+				else {
+					res.json(result);
+				}
+			}
+		);
+	});
+});
 
 app.post('/update', function(req, res) {
 	pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
