@@ -5,9 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Mobile App LEGARANT</title>
-	<!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<!--<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>-->
 	<script src="//code.jquery.com/jquery-3.5.1.min.js"></script>
 	<style>
 		body {
@@ -28,7 +26,6 @@
 
 		$(function() {
 			$("#authenticationForm").submit(function(event) {
-				console.log('Dans authent');
 				event.preventDefault();
 				var user = $("#user").val();
 				var pwd = $("#pwd").val();
@@ -36,9 +33,6 @@
 				var errorAuthent = $("#errorAuthent");
 				errorAuthent.hide();
 				$("#messageAuthent").hide();
-
-				console.log('User : ' + user);
-				console.log('Pwd : ' + pwd);
 				if (user.length == 0 || pwd.length == 0) {
 					errorAuthentMessage.text("User and Password fields are required.");
 					errorAuthent.show();
@@ -53,15 +47,11 @@
 						contentType: "application/json; charset=utf-8",
 						dataType: "json",
 						success: function(data) {
-							console.log('data:'+JSON.stringify(data));
 							$("#messageAuthentMessage").text("Authentication success !");
 							$("#messageAuthent").show();
 							var authenticationForm = $("#authenticationForm");
 							authenticationForm.delay(800).slideUp(300);
 							initAndShowContactForm($("#contactInformationForm"), data);
-							//var contactInformationForm = $("#contactInformationForm");
-							//contactInformationForm.show().slideUp(300).fadeIn(400);
-							//contactInformationForm.show().delay(1100).slideUp(300);
 						},
 						error: function(err) {
 							errorAuthentMessage.text(err.responseJSON.error);
@@ -79,7 +69,6 @@
 			$("#email").val($data.rows[0].email);
 			$("#phone").val($data.rows[0].phone);
 			contactId = $data.rows[0].sfid;
-			console.log('ContactId:'+contactId);
 			// then show Contract List
 			var contractsList = $("#contractsList");
 			contractsList.delay(1200).fadeIn(400);
@@ -98,7 +87,6 @@
 
 		$(function() {
 			$("#contactInformationForm").submit(function(event) {
-				console.log('Dans phone');
 				event.preventDefault();
 
 				var errorMessage = $("#errorMessage");
@@ -108,7 +96,6 @@
 				$("#message").hide();
 
 				var firstName = $("#firstName").val();
-				console.log('FirstName : ' + firstName);
 				var lastName = $("#lastName").val();
 				var email = $("#email").val();
 				var phone = $("#phone").val();
@@ -130,10 +117,6 @@
 						contentType: "application/json; charset=utf-8",
 						dataType: "json",
 						success: function(data) {
-							/*$("#firstName").val("");
-							$("#lastName").val("");
-							$("#email").val("");
-							$("#phone").val("");*/
 							$("#messageMessage").text("Record updated!");
 							$("#message").show();
 						},
@@ -150,7 +133,6 @@
 			event.preventDefault();
 			var messageGetContractsMessage = $("#messageGetContractsMessage");
 			var errorGetContractsMessage = $("#errorGetContractsMessage");
-			console.log('Dans contracsList via button');
 			if (contactId != undefined && contactId != "") {
 				$.ajax({
 					url: "/contracts",
@@ -161,7 +143,6 @@
 					contentType: "application/json; charset=utf-8",
 					dataType: "json",
 					success: function(data) {
-						console.log('data:'+JSON.stringify(data));
 						// Populate contracts table
 						var bodyContracts = $("#bodyContracts");
 						$.each(data.rows, function() {
@@ -192,7 +173,6 @@
 			event.preventDefault();
 			var messageGetProductsMessage = $("#messageGetProductsMessage");
 			var errorGetProductsMessage = $("#errorGetProductsMessage");
-			console.log('Dans ProductsList via button');
 			$.ajax({
 				url: "/products",
 				method: "post",
@@ -200,7 +180,6 @@
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
 				success: function(data) {
-					console.log('data:'+JSON.stringify(data));
 					// Populate products table
 					var bodyProducts = $("#bodyProducts");
 					$.each(data.rows, function() {
