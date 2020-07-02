@@ -83,6 +83,7 @@ function callbackContracts(res, result) {
 app.post('/products', function(req, res) {
 	pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
 		// watch for any connect issues
+		console.log('Test');
 		if (err) console.log(err);
 		conn.query(
 			'SELECT Name FROM salesforce.Product_Assu__c',
